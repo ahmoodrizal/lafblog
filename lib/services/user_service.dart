@@ -35,7 +35,7 @@ Future<ApiResponse> login(String email, String password) async {
         break;
     }
   } catch (e) {
-    apiResponse.error = serverError;
+    apiResponse.error = 'Gagal Maning';
   }
   return apiResponse;
 }
@@ -68,7 +68,8 @@ Future<ApiResponse> register(String email, String name, String password) async {
         break;
     }
   } catch (e) {
-    apiResponse.error = serverError;
+    apiResponse.error = 'Gagal Register';
+    // print(e.toString());
   }
   return apiResponse;
 }
@@ -78,7 +79,8 @@ Future<ApiResponse> getUserDetail() async {
   ApiResponse apiResponse = ApiResponse();
   try {
     String token = await getToken();
-    final response = await http.post(
+    // print(token);
+    final response = await http.get(
       Uri.parse(userUrl),
       headers: {
         'Accept': 'application/json',
@@ -94,7 +96,7 @@ Future<ApiResponse> getUserDetail() async {
         apiResponse.error = unauthorized;
         break;
       default:
-        apiResponse.error = somethingWentWrong;
+        apiResponse.error = 'Lah Kok Gini';
         break;
     }
   } catch (e) {

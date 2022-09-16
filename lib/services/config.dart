@@ -1,4 +1,4 @@
-const baseUrl = 'http://lafblog.local/api';
+const baseUrl = 'http://192.168.1.111:8000/api';
 const loginUrl = '$baseUrl/login';
 const registerUrl = '$baseUrl/register';
 const logoutUrl = '$baseUrl/logout';

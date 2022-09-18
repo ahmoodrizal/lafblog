@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
   void _saveTokenAndRedirectToHome(User user) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.setString('token', user.token ?? '');
-    await pref.setInt('userId', user.id ?? 0);
+    await pref.setInt('user_id', user.id ?? 0);
 
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
@@ -137,8 +137,10 @@ class _LoginState extends State<Login> {
                 height: 35,
               ),
               loading
-                  ? const Center(
-                      child: CircularProgressIndicator(),
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: primaryColor,
+                      ),
                     )
                   : TextButton(
                       style: ButtonStyle(

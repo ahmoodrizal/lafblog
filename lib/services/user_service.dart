@@ -106,6 +106,38 @@ Future<ApiResponse> getUserDetail() async {
   return apiResponse;
 }
 
+// update user
+Future<ApiResponse> updateUserProfile(String name, String? profile) async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    // print(token);
+    final response = await http.put(
+      Uri.parse(userUrl),
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: profile == null ? {'name': name} : {'name': name, 'profile': profile},
+    );
+
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = jsonDecode(response.body)['message'];
+        break;
+      case 401:
+        apiResponse.error = unauthorized;
+        break;
+      default:
+        apiResponse.error = 'Lah Kok Gini';
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = serverError;
+  }
+  return apiResponse;
+}
+
 // get user token
 Future<String> getToken() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
